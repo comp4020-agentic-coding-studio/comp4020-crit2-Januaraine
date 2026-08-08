@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const SITE_ROOT = "https://www.actwildlife.org.au";
+
+const getInvolvedCards = [
+  {
+    title: "Become a Member",
+    description:
+      "A $40 annual membership supports our work and is the first step toward volunteering or caring for wildlife.",
+    href: `${SITE_ROOT}/get-involved/become-a-member`,
+    image: null,
+  },
+  {
+    title: "Become a Volunteer",
+    description:
+      "Help without hands-on animal care — phone duty, transport, pouch-knitting, aviary building, and more.",
+    href: `${SITE_ROOT}/become-a-volunteer`,
+    image: "card-become-a-volunteer.jpg",
+  },
+  {
+    title: "Become a Carer",
+    description:
+      "Take injured, sick, or orphaned native animals into your own home under licence, with full training provided.",
+    href: `${SITE_ROOT}/become-a-carer`,
+    image: "card-become-a-carer.jpg",
+  },
+  {
+    title: "Sponsor a Species",
+    description:
+      "Support the ongoing care of bats, birds, possums, reptiles, or wombats with a recurring sponsorship.",
+    href: `${SITE_ROOT}/sponsor-a-species`,
+    image: "card-sponsor-a-species.jpg",
+  },
+];
+---
+
+<BaseLayout
+  title="ACT Wildlife — Rescue Rehabilitate Release"
+  description="ACT Wildlife is a not-for-profit organisation rescuing, rehabilitating, and releasing native wildlife across the ACT."
+>
+  <div class="hero">
+    <img
+      src="images/homepage/hero-banner.jpg"
+      alt="An ACT Wildlife carer holding a rescued native animal"
+    />
+    <div class="hero-content">
+      <h1>Rescue Rehabilitate Release</h1>
+      <p>
+        ACT Wildlife is a not-for-profit organisation dedicated to the
+        rescue, rehabilitation, and release of native animals across the
+        ACT. <a href={`${SITE_ROOT}/about`}>Learn about our mission →</a>
+      </p>
+    </div>
+  </div>
+
+  <section class="hotline" aria-labelledby="hotline-heading">
+    <h2 id="hotline-heading">Found an injured, sick, or orphaned animal?</h2>
+    <p>Call our 24/7 Animal Rescue Hotline — this is ACT Wildlife's only hotline.</p>
+    <a class="tel-link" href="tel:0432300033">0432 300 033</a>
+  </section>
+
+  <!--
+    Notices/campaign section: kept structurally per
+    docs/homepage-content-strategy.md Section 2(g), but omitted from render
+    this pass. The only current examples on the live site (the bird-flu
+    notice and the netting-swap campaign) are time-bound facts captured
+    during research and must not be reused as if still current; nothing is
+    invented to fill this gap. Add real, currently-live notice content here
+    when it exists.
+  -->
+
+  <section aria-labelledby="get-involved-heading">
+    <h2 id="get-involved-heading">Get Involved</h2>
+    <p>There are four ways to support ACT Wildlife — find the one that fits you.</p>
+    <div class="card-grid">
+      {
+        getInvolvedCards.map((card) => (
+          <div class="card">
+            {card.image && (
+              <img
+                src={`images/homepage/${card.image}`}
+                alt={`${card.title} — ACT Wildlife`}
+              />
+            )}
+            <div class="card-body">
+              <h3>{card.title}</h3>
+              <p>{card.description}</p>
+              <a href={card.href}>Learn more →</a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="donation-cta" aria-labelledby="donate-heading">
+    <h2 id="donate-heading">Support Our Work</h2>
+    <p>Your donation means everything to our wildlife.</p>
+    <a class="button" href={`${SITE_ROOT}/donate`}>Donate Now</a>
+  </section>
+
+  <section aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Visit or Contact Us</h2>
+    <address>
+      Jerrabomberra Wetlands, Dairy Rd, Fyshwick ACT 2609<br />
+      Office hours: Mon&ndash;Fri 9am&ndash;5pm, Sat 9am&ndash;3pm, Sun closed<br />
+      <a href="tel:0432300033">0432 300 033</a>
+    </address>
+    <p><a href={`${SITE_ROOT}/contact-us`}>Contact Us →</a></p>
+  </section>
+</BaseLayout>

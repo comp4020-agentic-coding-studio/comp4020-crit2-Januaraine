@@ -1,0 +1,66 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const SITE_ROOT = "https://www.actwildlife.org.au";
+---
+
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="images/homepage/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="./">
+          <img src="images/homepage/logo-primary.png" alt="ACT Wildlife home" />
+        </a>
+        <nav class="site-nav" aria-label="Main">
+          <ul>
+            <li><a href="./">Home</a></li>
+            <li><a href={`${SITE_ROOT}/about`}>About Us</a></li>
+            <li><a href={`${SITE_ROOT}/get-involved/become-a-member`}>Become a Member</a></li>
+            <li><a href={`${SITE_ROOT}/become-a-volunteer`}>Become a Volunteer</a></li>
+            <li><a href={`${SITE_ROOT}/become-a-carer`}>Become a Carer</a></li>
+            <li><a href={`${SITE_ROOT}/sponsor-a-species`}>Sponsor a Species</a></li>
+            <li><a href={`${SITE_ROOT}/donate`}>Donate</a></li>
+            <li><a href={`${SITE_ROOT}/contact-us`}>Contact Us</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="images/homepage/logo-footer.png" alt="ACT Wildlife" />
+        </div>
+        <address>
+          Jerrabomberra Wetlands, Dairy Rd, Fyshwick ACT 2609<br />
+          PO Box 7237, Duffy 2611, ACT<br />
+          <a href="tel:0432300033">0432 300 033</a> (24/7 Animal Rescue Hotline)<br />
+          Office hours: Mon&ndash;Fri 9am&ndash;5pm, Sat 9am&ndash;3pm, Sun closed<br />
+          ABN 84 737 023 161
+        </address>
+        <nav class="social-links" aria-label="Social media">
+          <p>Follow us</p>
+          <ul>
+            <li><a href="https://www.facebook.com/ACT.Wildlife">Facebook</a></li>
+            <li><a href="https://www.instagram.com/act_wildlife">Instagram</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

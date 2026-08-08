@@ -2,9 +2,10 @@
 
 ## Stack
 
-- Static site: **Vite + TypeScript + HTML/CSS**, building to plain HTML/CSS/JS in `dist/`.
-- Every `.html` file at the repo root is a page; add pages by adding files, no extra config needed.
-- No framework lock-in: any change must still satisfy — `pnpm build` emits into `dist/`, `package.json` scripts (`check`, `check:evidence`, `build`) keep working, and `dist/` still passes `spec/`.
+- Static site: **Astro + TypeScript**, building to plain HTML/CSS/JS in `dist/`.
+- Pages live in `src/pages/` (file-based routing); shared structure lives in `src/layouts/`; global CSS lives in `src/styles/global.css`.
+- Deployed as a GitHub Pages project page. CI's link check (`linkinator ./dist`) crawls the flat `dist/` output directly, with no knowledge of the deployed subpath — so internal hrefs/asset paths must stay **relative** (no leading slash, no `import.meta.env.BASE_URL` prefix). This mirrors the previous Vite setup's `base: "./"` convention and is why `astro.config.mjs` does not set `base`.
+- Any change must still satisfy — `pnpm build` emits into `dist/`, `package.json` scripts (`check`, `check:evidence`, `build`) keep working, and `dist/` still passes `spec/`.
 
 ## Key commands
 

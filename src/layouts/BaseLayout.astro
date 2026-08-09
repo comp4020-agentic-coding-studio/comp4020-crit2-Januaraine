@@ -64,6 +64,7 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
         </button>
       </div>
     </header>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
     <main>
       <slot />
     </main>
@@ -87,15 +88,7 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
         </div>
         <div class="footer-col">
           <h2>24/7 Rescue Hotline</h2>
-          <a class="hotline-pill" href="tel:0432300033">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                fill="currentColor"
-                d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
-              ></path>
-            </svg>
-            <span>0432 300 033</span>
-          </a>
+          <p>0432 300 033</p>
         </div>
         <div class="footer-col">
           <h2>Office Hours</h2>
@@ -128,17 +121,44 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
       const header = document.getElementById("site-header");
       const nav = document.getElementById("site-nav");
       const toggle = document.getElementById("nav-toggle");
+      const backdrop = document.getElementById("nav-backdrop");
+
+      const openNav = () => {
+        nav?.classList.add("is-open");
+        backdrop?.classList.add("is-open");
+        toggle?.classList.add("is-open");
+        document.body.classList.add("nav-open");
+        toggle?.setAttribute("aria-expanded", "true");
+      };
+
+      const closeNav = () => {
+        nav?.classList.remove("is-open");
+        backdrop?.classList.remove("is-open");
+        toggle?.classList.remove("is-open");
+        document.body.classList.remove("nav-open");
+        toggle?.setAttribute("aria-expanded", "false");
+      };
 
       toggle?.addEventListener("click", () => {
-        const isOpen = nav?.classList.toggle("is-open") ?? false;
-        toggle.setAttribute("aria-expanded", String(isOpen));
+        if (nav?.classList.contains("is-open")) {
+          closeNav();
+        } else {
+          openNav();
+        }
+      });
+
+      backdrop?.addEventListener("click", closeNav);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && nav?.classList.contains("is-open")) {
+          closeNav();
+        }
       });
 
       nav?.addEventListener("click", (event) => {
         const target = event.target;
         if (target instanceof HTMLElement && target.tagName === "A") {
-          nav.classList.remove("is-open");
-          toggle?.setAttribute("aria-expanded", "false");
+          closeNav();
         }
       });
 

@@ -18,7 +18,7 @@
   --shadow-header: 0 2px 10px rgb(0 0 0 / 8%);
   --shadow-card: 0 1px 4px rgb(0 0 0 / 8%);
   --shadow-card-hover: 0 8px 20px rgb(0 0 0 / 12%);
-  --container-width: 72rem;
+  --container-width: 64rem;
   --header-max-width: 96rem;
   --reveal-duration: 500ms;
   --reveal-distance: 20px;
@@ -33,6 +33,10 @@ body {
   font-family: var(--font-sans);
   line-height: 1.6;
   color: var(--color-ink);
+}
+
+body.nav-open {
+  overflow: hidden;
 }
 
 main {
@@ -136,6 +140,7 @@ h3 {
   height: 2px;
   background: var(--color-ink);
   position: relative;
+  transition: background 200ms ease;
 }
 
 .nav-toggle-bars::before,
@@ -146,6 +151,9 @@ h3 {
   width: 100%;
   height: 2px;
   background: var(--color-ink);
+  transition:
+    top 200ms ease,
+    transform 200ms ease;
 }
 
 .nav-toggle-bars::before {
@@ -341,7 +349,7 @@ h3 {
   width: 100%;
   max-width: 40rem;
   color: #fff;
-  padding: var(--space-6) var(--space-3) var(--space-5);
+  padding: var(--space-6) 3.5rem var(--space-5);
 }
 
 .hero-content h1 {
@@ -365,7 +373,7 @@ h3 {
   width: 100%;
   max-width: 40rem;
   margin: 0 auto;
-  padding: var(--space-6) var(--space-3) var(--space-5);
+  padding: var(--space-6) 3.5rem var(--space-5);
   color: var(--color-ink);
 }
 
@@ -500,7 +508,10 @@ section {
 
 @media (width >= 768px) {
   .card-grid {
-    grid-template-columns: repeat(2, 1fr);
+    max-width: 64rem;
+    margin: var(--space-3) auto 0;
+    padding: 0 var(--space-3);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-4);
   }
 }
@@ -525,7 +536,8 @@ section {
 .card img,
 .card-icon-panel {
   width: 100%;
-  height: 12rem;
+  aspect-ratio: 2.5 / 1;
+  height: auto;
   object-fit: cover;
 }
 
@@ -603,19 +615,24 @@ section {
   padding: 0.85rem 2rem;
   background: var(--color-primary-deep);
   color: #fff;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   text-decoration: none;
   font-weight: 700;
-  transition: background 150ms ease;
+  transition:
+    background 150ms ease,
+    transform 150ms ease;
 }
 
 .button-donate:hover {
   background: var(--color-primary-hover);
+  transform: translateY(-2px);
 }
 
 .sponsor-note {
-  margin: var(--space-2) 0 0;
-  font-size: 0.85rem;
+  margin: 1.5rem 0 0 !important;
+  max-width: 38rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
   color: var(--color-ink-muted);
 }
 
@@ -690,36 +707,70 @@ address {
     object-position: 50% 28%;
   }
 
-  /* Keep slide text clear of the absolutely-positioned prev/next buttons —
-     their right edge sits at ~3.25rem from the slide edge. */
-  .hero-content,
-  .notice-panel {
-    padding-left: 3.25rem;
-    padding-right: 3.25rem;
-  }
-
   .site-nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
+    position: fixed;
+    top: 0;
     right: 0;
+    z-index: 45;
+    width: min(80vw, 20rem);
+    height: 100dvh;
+    margin-left: 0;
     background: #fff;
-    border-bottom: 1px solid var(--color-border);
-    padding: var(--space-2) var(--space-3);
+    box-shadow: -4px 0 24px rgb(0 0 0 / 18%);
+    padding: var(--space-6) var(--space-3) var(--space-3);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 250ms ease;
   }
 
   .site-nav.is-open {
-    display: block;
+    transform: translateX(0);
   }
 
   .site-nav ul {
     flex-direction: column;
-    gap: var(--space-2);
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+
+  .nav-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgb(0 0 0 / 40%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease;
+  }
+
+  .nav-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .nav-toggle {
     display: block;
+    position: relative;
+    z-index: 46;
+    margin-left: auto;
+  }
+
+  .nav-toggle.is-open .nav-toggle-bars {
+    background: transparent;
+  }
+
+  .nav-toggle.is-open .nav-toggle-bars::before,
+  .nav-toggle.is-open .nav-toggle-bars::after {
+    top: 0;
+    background: var(--color-ink);
+  }
+
+  .nav-toggle.is-open .nav-toggle-bars::before {
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle.is-open .nav-toggle-bars::after {
+    transform: rotate(-45deg);
   }
 
   .header-inner {

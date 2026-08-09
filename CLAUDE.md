@@ -37,6 +37,13 @@
 8. **Check before creating.** Before creating a file or starting work, check whether a suitable file already exists and whether the work is already partially done; update/reuse it instead of duplicating or repeating work.
 9. **Scope large tasks.** Estimate the scope of long-running research or generation tasks before starting; warn the user if it's likely to exceed one context window or API response; prefer smaller, independent stages.
 10. **No invented URLs.** Discover website pages from the site's actual navigation or sitemap when analysing an existing site — never guess or invent page URLs.
+11. **Don't auto-launch browser verification for small CSS/layout tweak
+s.** After a minor CSS or layout change, run the project's static/type
+checks (`pnpm check`) and treat that as sufficient by default. Only rea
+ch for Playwright/headless-browser screenshots when the user explicitly
+ asks for visual verification or the change is large/uncertain enough t
+o clearly warrant it — don't install browsers or drive a headless sessi
+on unprompted.
 
 ## Growing this file
 

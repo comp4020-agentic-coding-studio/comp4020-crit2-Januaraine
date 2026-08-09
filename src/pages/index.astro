@@ -41,47 +41,68 @@ const getInvolvedCards = [
 >
   <div class="hero">
     <img
+      class="hero-bg"
       src="images/homepage/hero-banner.jpg"
       alt="An ACT Wildlife carer holding a rescued native animal"
     />
+    <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Rescue Rehabilitate Release</h1>
       <p>
         ACT Wildlife is a not-for-profit organisation dedicated to the
         rescue, rehabilitation, and release of native animals across the
-        ACT. <a href={`${SITE_ROOT}/about`}>Learn about our mission →</a>
+        ACT.
       </p>
+      <a class="hotline-pill large pulse" href="tel:0432300033">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
+          ></path>
+        </svg>
+        <span>24/7 Animal Rescue Hotline: 0432 300 033</span>
+      </a>
     </div>
   </div>
 
-  <section class="hotline" aria-labelledby="hotline-heading">
-    <h2 id="hotline-heading">Found an injured, sick, or orphaned animal?</h2>
-    <p>Call our 24/7 Animal Rescue Hotline — this is ACT Wildlife's only hotline.</p>
-    <a class="tel-link" href="tel:0432300033">0432 300 033</a>
+  <div class="mission-strip" data-animate>
+    <p>
+      Rescuing, rehabilitating, and releasing native wildlife across the ACT
+      since 1993. <a href={`${SITE_ROOT}/about`}>Learn about our mission →</a>
+    </p>
+  </div>
+
+  <section class="notices" aria-labelledby="notices-heading">
+    <div class="notice-card" data-animate>
+      <h2 id="notices-heading">Notices &amp; Current Campaigns</h2>
+      <p>Check back here for current updates.</p>
+    </div>
   </section>
 
-  <!--
-    Notices/campaign section: kept structurally per
-    docs/homepage-content-strategy.md Section 2(g), but omitted from render
-    this pass. The only current examples on the live site (the bird-flu
-    notice and the netting-swap campaign) are time-bound facts captured
-    during research and must not be reused as if still current; nothing is
-    invented to fill this gap. Add real, currently-live notice content here
-    when it exists.
-  -->
-
-  <section aria-labelledby="get-involved-heading">
-    <h2 id="get-involved-heading">Get Involved</h2>
-    <p>There are four ways to support ACT Wildlife — find the one that fits you.</p>
+  <section class="get-involved" aria-labelledby="get-involved-heading">
+    <h2 class="section-heading" id="get-involved-heading" data-animate>Get Involved</h2>
+    <p class="section-lead" data-animate>
+      There are four ways to support ACT Wildlife — find the one that fits you.
+    </p>
     <div class="card-grid">
       {
-        getInvolvedCards.map((card) => (
-          <div class="card">
-            {card.image && (
+        getInvolvedCards.map((card, index) => (
+          <div class="card" data-animate style={`--delay: ${index * 100}ms`}>
+            {card.image ? (
               <img
                 src={`images/homepage/${card.image}`}
                 alt={`${card.title} — ACT Wildlife`}
               />
+            ) : (
+              <div class="card-icon-panel" role="img" aria-label={`${card.title} — ACT Wildlife`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3 2.5-5 6-5s6 2 6 5M14 20c0-2.5 2-4.5 5-4.5s5 2 5 4.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </div>
             )}
             <div class="card-body">
               <h3>{card.title}</h3>
@@ -94,19 +115,9 @@ const getInvolvedCards = [
     </div>
   </section>
 
-  <section class="donation-cta" aria-labelledby="donate-heading">
+  <section class="donation-cta" aria-labelledby="donate-heading" data-animate>
     <h2 id="donate-heading">Support Our Work</h2>
     <p>Your donation means everything to our wildlife.</p>
-    <a class="button" href={`${SITE_ROOT}/donate`}>Donate Now</a>
-  </section>
-
-  <section aria-labelledby="contact-heading">
-    <h2 id="contact-heading">Visit or Contact Us</h2>
-    <address>
-      Jerrabomberra Wetlands, Dairy Rd, Fyshwick ACT 2609<br />
-      Office hours: Mon&ndash;Fri 9am&ndash;5pm, Sat 9am&ndash;3pm, Sun closed<br />
-      <a href="tel:0432300033">0432 300 033</a>
-    </address>
-    <p><a href={`${SITE_ROOT}/contact-us`}>Contact Us →</a></p>
+    <a class="button-donate" href={`${SITE_ROOT}/donate`}>Donate to Support Our Work</a>
   </section>
 </BaseLayout>

@@ -270,13 +270,15 @@ fourth-priority organisational goal.
 homepage; its position in the section order is fixed (Section 2, position 6
 — after get-involved, before the footer).
 
-**Open — not yet decided, no direction proposed:** visual weight relative to
-other CTAs (strong button vs. de-emphasised text link); whether preset
-donation amounts ($20/$50/$100) appear on the homepage itself (not required
-by the content strategy). This section is left open rather than given a
-first-prototype default, since no direction for it was given in this round
-— it should be decided (or explicitly deferred with a plain default) before
-or during the first prototype build.
+**Resolved — first-prototype default:** a single, minimal CTA button — solid
+green fill / white text, or white fill / green outline (either is acceptable;
+pick whichever pairs better with the section background once rendered) —
+labelled **"Donate to Support Our Work"**, linking out to the external
+Funraisin platform. No preset donation amounts ($20/$50/$100) on the
+homepage; the amount selection stays on Funraisin's own flow.
+
+**Open — test in prototype:** exact fill vs. outline choice, button size
+relative to the get-involved cards' own CTAs.
 
 ## 8. Mission / About Us Link
 
@@ -339,10 +341,14 @@ requirement is satisfied separate from the hero hotline.
 and social links are all real and available for use; the footer's position
 is fixed (Section 2, position 7, last).
 
-**Open — no direction proposed this round:** whether to add a published
-email address (an unresolved organisational trade-off — may need to be
-flagged back to the organisation rather than decided unilaterally here);
-footer column layout; the source/style of icons to use.
+**Resolved — email address:** do not add one. The live site has never
+published a public email address, and no direction was given to fill that
+gap — treat its absence as intentional rather than a defect to fix
+unilaterally. The footer shows only the confirmed real information: hotline,
+address, office hours, and social links.
+
+**Open — test in prototype:** footer column layout; the source/style of
+icons to use.
 
 ## 11. Desktop and Mobile Responsive Design
 
@@ -377,16 +383,14 @@ iteration step exists to perform.
 | 4 | Hotline / emergency info | **Resolved:** green button style, tel: link, header+hero+footer placement, plain-text rule for any future external number. **Open:** button shape/icon, optional pulse motion. |
 | 5 | Notices / campaign section | **Resolved:** reusable card component, empty-state-only for this prototype, lighter visual weight. **Open:** empty-state copy, exact size. |
 | 6 | Get involved cards | **Resolved:** icon-panel treatment for the Member card in place of the missing photo, shared card template, 2×2 grid. **Open:** icon choice, desktop 2×2 vs. 4-across after rendering. |
-| 7 | Donation CTA | **No direction proposed this round.** Position fixed (Section 2); visual weight and preset amounts still open with no default given. |
+| 7 | Donation CTA | **Resolved:** minimal button ("Donate to Support Our Work"), green fill/white text or white fill/green outline, linking out to Funraisin; no preset amounts. **Open:** fill vs. outline, size vs. other CTAs. |
 | 8 | Mission / About link | **Resolved:** short strip + link, placed directly below hero. **Open:** merged-into-hero vs. separate strip, after rendering. |
 | 9 | Scroll interaction | **Resolved:** fade + rise-on-entry, staggered on cards, header/hotline exempt, reduced-motion respected. **Open:** exact timing/easing. |
-| 10 | Footer / contact | **Resolved:** content set, position fixed (last). **No direction proposed this round** on email address, column layout, icon style. |
+| 10 | Footer / contact | **Resolved:** content set (hotline, address, hours, social links — no email address, by decision), position fixed (last). **Open:** column layout, icon style. |
 | 11 | Responsive design | **Resolved:** how each above decision resolves at both viewports. **Open:** exact breakpoint values, tablet treatment, final dual-viewport confirmation. |
 
 Rows marked **Open** are intentionally left for the first prototype to
 answer by being looked at, not by further discussion — per your instruction
 not to resolve every remaining detail in prose before a prototype exists.
-Rows 7 and parts of Row 10 have no first-prototype default proposed at all
-(as opposed to a default awaiting visual confirmation) and should be
-addressed before or during the build, since no direction was given for them
-in this round.
+As of this revision, every row (including 7 and 10) has at least a plain
+first-prototype default; no row is left with zero direction.

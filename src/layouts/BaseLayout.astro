@@ -27,13 +27,29 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
         <nav class="site-nav" id="site-nav" aria-label="Main">
           <ul>
             <li><a href="./">Home</a></li>
+            <li>
+              <details class="nav-dropdown">
+                <summary>Get Involved</summary>
+                <ul>
+                  <li><a href={`${SITE_ROOT}/get-involved/become-a-member`}>Become a Member</a></li>
+                  <li><a href={`${SITE_ROOT}/become-a-volunteer`}>Become a Volunteer</a></li>
+                  <li><a href={`${SITE_ROOT}/become-a-carer`}>Become a Carer</a></li>
+                  <li><a href={`${SITE_ROOT}/sponsor-a-species`}>Sponsor a Species</a></li>
+                </ul>
+              </details>
+            </li>
             <li><a href={`${SITE_ROOT}/about`}>About Us</a></li>
-            <li><a href={`${SITE_ROOT}/get-involved/become-a-member`}>Become a Member</a></li>
-            <li><a href={`${SITE_ROOT}/become-a-volunteer`}>Become a Volunteer</a></li>
-            <li><a href={`${SITE_ROOT}/become-a-carer`}>Become a Carer</a></li>
-            <li><a href={`${SITE_ROOT}/sponsor-a-species`}>Sponsor a Species</a></li>
             <li><a href={`${SITE_ROOT}/donate`}>Donate</a></li>
             <li><a href={`${SITE_ROOT}/contact-us`}>Contact Us</a></li>
+            <li>
+              <details class="nav-dropdown">
+                <summary>Login</summary>
+                <ul>
+                  <li><a href={`${SITE_ROOT}/members-login`}>Members Login</a></li>
+                  <li><a href={`${SITE_ROOT}/wildman-login`}>Wildman Login</a></li>
+                </ul>
+              </details>
+            </li>
           </ul>
         </nav>
         <button
@@ -46,26 +62,24 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
         >
           <span class="nav-toggle-bars"></span>
         </button>
-        <a class="hotline-pill header-hotline" href="tel:0432300033">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              fill="currentColor"
-              d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
-            ></path>
-          </svg>
-          <span>24/7 Hotline: 0432 300 033</span>
-        </a>
       </div>
     </header>
     <main>
       <slot />
     </main>
+    <a class="hotline-pill floating-hotline" href="tel:0432300033">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
+        ></path>
+      </svg>
+      <span><span class="hotline-label">24/7 Hotline: </span>0432 300 033</span>
+    </a>
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-col">
-          <div class="footer-logo">
-            <img src="images/homepage/logo-footer.png" alt="ACT Wildlife" />
-          </div>
+          <h2>Find Us</h2>
           <address>
             Jerrabomberra Wetlands, Dairy Rd, Fyshwick ACT 2609<br />
             PO Box 7237, Duffy 2611, ACT
@@ -95,6 +109,18 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
             <li><a href="https://www.instagram.com/act_wildlife">Instagram</a></li>
           </ul>
         </nav>
+      </div>
+      <div class="footer-legal">
+        <p>© Copyright 2026 ACT Wildlife</p>
+        <nav aria-label="Legal">
+          <a href={`${SITE_ROOT}/privacy`}>Privacy Policy</a>
+        </nav>
+        <a
+          class="funraisin-credit"
+          href="http://www.funraisin.co?utm_medium=customer&utm_source=ACT+Wildlife"
+        >
+          Powered by Funraisin
+        </a>
       </div>
     </footer>
 
@@ -127,6 +153,61 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
           ticking = true;
         }
       });
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const initCarousel = (root: HTMLElement) => {
+        const slides = Array.from(root.querySelectorAll<HTMLElement>("[data-slide]"));
+        const status = root.querySelector<HTMLElement>("[data-carousel-status]");
+        const dots = Array.from(root.querySelectorAll<HTMLElement>("[data-carousel-dot]"));
+        const autoplayMs = Number(root.dataset.autoplay ?? 0);
+        let active = 0;
+        let autoplayId: number | undefined;
+        let userStopped = false;
+
+        const show = (index: number) => {
+          active = (index + slides.length) % slides.length;
+          slides.forEach((slide, i) => {
+            slide.hidden = i !== active;
+          });
+          if (status) status.textContent = `${active + 1} / ${slides.length}`;
+          dots.forEach((dot, i) => {
+            dot.setAttribute("aria-current", String(i === active));
+          });
+        };
+
+        const pauseAutoplay = () => {
+          if (autoplayId !== undefined) {
+            window.clearInterval(autoplayId);
+            autoplayId = undefined;
+          }
+        };
+
+        const startAutoplay = () => {
+          if (reduceMotion || !autoplayMs || userStopped || autoplayId !== undefined) return;
+          autoplayId = window.setInterval(() => show(active + 1), autoplayMs);
+        };
+
+        const manualNav = (index: number) => {
+          userStopped = true;
+          pauseAutoplay();
+          show(index);
+        };
+
+        root.querySelector("[data-carousel-prev]")?.addEventListener("click", () => manualNav(active - 1));
+        root.querySelector("[data-carousel-next]")?.addEventListener("click", () => manualNav(active + 1));
+        dots.forEach((dot, i) => dot.addEventListener("click", () => manualNav(i)));
+
+        root.addEventListener("mouseenter", pauseAutoplay);
+        root.addEventListener("mouseleave", startAutoplay);
+        root.addEventListener("focusin", pauseAutoplay);
+        root.addEventListener("focusout", startAutoplay);
+
+        show(0);
+        startAutoplay();
+      };
+
+      document.querySelectorAll<HTMLElement>("[data-carousel]").forEach(initCarousel);
 
       const revealTargets = document.querySelectorAll("[data-animate]");
       if ("IntersectionObserver" in window && revealTargets.length > 0) {

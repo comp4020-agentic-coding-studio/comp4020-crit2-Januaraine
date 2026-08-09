@@ -112,14 +112,13 @@ h3 {
   gap: var(--space-3);
 }
 
-.logo img {
-  height: 2.25rem;
-  width: auto;
+.logo {
+  flex-shrink: 0;
 }
 
-.header-hotline {
-  margin-left: auto;
-  flex-shrink: 0;
+.logo img {
+  height: 2.75rem;
+  width: auto;
 }
 
 .nav-toggle {
@@ -158,7 +157,7 @@ h3 {
 }
 
 .site-nav {
-  margin-left: var(--space-3);
+  margin-left: auto;
 }
 
 .site-nav ul {
@@ -178,6 +177,54 @@ h3 {
 
 .site-nav a:hover {
   color: var(--color-primary-deep);
+}
+
+.nav-dropdown {
+  position: relative;
+}
+
+.nav-dropdown summary {
+  cursor: pointer;
+  color: var(--color-ink);
+  list-style: none;
+}
+
+.nav-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.nav-dropdown summary::after {
+  content: " ▾";
+  font-size: 0.75em;
+}
+
+.nav-dropdown summary:hover {
+  color: var(--color-primary-deep);
+}
+
+.nav-dropdown ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (width >= 768px) {
+  .nav-dropdown[open] ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    min-width: 12rem;
+    margin: var(--space-1) 0 0;
+    padding: var(--space-2);
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
+  }
 }
 
 /* Shared hotline pill, used in header / hero / footer */
@@ -220,6 +267,15 @@ h3 {
   animation: hotline-pulse 2.4s ease-in-out infinite;
 }
 
+/* Floating 24/7 hotline button — always reachable, never covers content */
+.floating-hotline {
+  position: fixed;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 40;
+  box-shadow: var(--shadow-card-hover);
+}
+
 @keyframes hotline-pulse {
   0%,
   100% {
@@ -231,13 +287,31 @@ h3 {
   }
 }
 
-/* Hero */
-.hero {
+/* Hero carousel — two slides: Rescue/Rehabilitate/Release, and Notices */
+.hero-carousel {
+  position: relative;
+}
+
+/* A slide's own hidden attribute must win over the global `img { display:
+   block }` rule below — author-origin normal declarations always beat
+   user-agent normal declarations (the browser's default [hidden] rule),
+   regardless of specificity, so this needs to be explicit. Shared with the
+   photo gallery slides, which have the same issue. */
+[data-slide][hidden] {
+  display: none;
+}
+
+.hero-slide {
   position: relative;
   min-height: 32rem;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
+}
+
+.hero-slide.notice-slide {
+  align-items: center;
+  background: var(--color-primary-tint);
 }
 
 .hero-bg {
@@ -286,21 +360,89 @@ h3 {
   text-decoration: underline;
 }
 
-/* Mission strip */
-.mission-strip {
-  background: var(--color-primary-tint);
-  padding: var(--space-3) 0;
+/* Notice slide panel */
+.notice-panel {
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-3) var(--space-5);
+  color: var(--color-ink);
+}
+
+.notice-panel h2 {
+  margin: 0 0 var(--space-3);
   text-align: center;
 }
 
-.mission-strip p {
-  margin: 0;
+.notice-item + .notice-item {
+  margin-top: var(--space-3);
+}
+
+.notice-item h3 {
+  margin: 0 0 0.25rem;
   font-size: 1.05rem;
 }
 
-/* stylelint-disable-next-line no-descending-specificity */
-.mission-strip a {
-  font-weight: 600;
+.notice-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-ink-muted);
+}
+
+/* Carousel controls, shared by the hero carousel and the photo gallery */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 85%);
+  color: var(--color-ink);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.carousel-control:hover {
+  background: #fff;
+}
+
+.carousel-prev {
+  left: var(--space-2);
+}
+
+.carousel-next {
+  right: var(--space-2);
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: var(--space-2);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  background: rgb(0 0 0 / 25%);
+  border-radius: var(--radius-pill);
+}
+
+.carousel-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 55%);
+  cursor: pointer;
+}
+
+.carousel-dot[aria-current="true"] {
+  background: #fff;
 }
 
 /* Sections */
@@ -319,32 +461,33 @@ section {
   margin: 0 0 var(--space-3);
 }
 
-/* Notices (empty-state, deliberately lighter-weight) */
-.notices {
-  padding: var(--space-3) 0;
-  background: #fafafa;
-}
-
-.notice-card {
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding: var(--space-2) var(--space-3);
-  background: #fff;
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius);
+/* Photo gallery */
+.gallery {
   text-align: center;
+}
+
+.gallery-viewport {
+  position: relative;
+  max-width: 40rem;
+  aspect-ratio: 16 / 10;
+  margin: var(--space-3) auto 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-primary-tint);
+}
+
+.gallery-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gallery-status {
+  margin: var(--space-1) 0 0;
+  font-size: 0.85rem;
   color: var(--color-ink-muted);
-}
-
-.notice-card h2 {
-  font-size: 1rem;
-  margin: 0 0 0.25rem;
-  color: var(--color-ink);
-}
-
-.notice-card p {
-  margin: 0;
-  font-size: 0.95rem;
 }
 
 /* Get involved */
@@ -438,6 +581,14 @@ section {
   text-align: center;
 }
 
+.donation-cta-inner {
+  max-width: 32rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .donation-cta h2 {
   margin: 0 0 var(--space-1);
 }
@@ -462,6 +613,12 @@ section {
   background: var(--color-primary-hover);
 }
 
+.sponsor-note {
+  margin: var(--space-2) 0 0;
+  font-size: 0.85rem;
+  color: var(--color-ink-muted);
+}
+
 /* Footer */
 address {
   font-style: normal;
@@ -479,12 +636,6 @@ address {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
   gap: var(--space-4);
-}
-
-.footer-logo img {
-  height: 2rem;
-  width: auto;
-  margin-bottom: var(--space-2);
 }
 
 .footer-col h2 {
@@ -510,10 +661,41 @@ address {
   padding: 0;
 }
 
+.footer-legal {
+  max-width: var(--container-width);
+  margin: var(--space-3) auto 0;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+}
+
+.footer-legal p {
+  margin: 0;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.footer-legal a {
+  color: var(--color-ink-muted);
+}
+
 /* Responsive */
 @media (width <= 767px) {
   .hero-bg {
     object-position: 50% 28%;
+  }
+
+  /* Keep slide text clear of the absolutely-positioned prev/next buttons —
+     their right edge sits at ~3.25rem from the slide edge. */
+  .hero-content,
+  .notice-panel {
+    padding-left: 3.25rem;
+    padding-right: 3.25rem;
   }
 
   .site-nav {
@@ -547,5 +729,30 @@ address {
   .hotline-pill.large {
     font-size: 1rem;
     padding: 0.75rem 1.25rem;
+  }
+
+  .nav-dropdown ul {
+    padding-left: var(--space-2);
+  }
+
+  .floating-hotline .hotline-label {
+    display: none;
+  }
+
+  .floating-hotline {
+    right: var(--space-2);
+    bottom: var(--space-2);
+    padding: 0.6rem 0.8rem;
+  }
+
+  .footer-legal {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* Leave room so the fixed floating hotline button never covers the last
+     row of footer content when scrolled to the bottom. */
+  .site-footer {
+    padding-bottom: 6rem;
   }
 }

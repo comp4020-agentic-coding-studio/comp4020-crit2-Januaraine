@@ -83,3 +83,26 @@ check is not a substitute for that curation.
 
 Images are deliberately not checked, because whether one renders is visible the
 moment you look. Open this file on GitHub and look at it before you ship.
+
+
+---
+## 📝 Decision Log & Process Notes (Draft / Raw Evidence)
+
+> **Note:** Temporary record of real-time design decisions, spec constraints, and trade-offs. To be synthesized into final process documentation.
+
+### 1. Avian Flu Notice & Campaign Slot Strategy
+* **Observation:** The live site features a 3 July 2026 Avian Flu notice.
+* **Spec Constraint:** Per `docs/homepage-content-strategy.md`, historical notices are treated as time-bound.
+* **Decision:** Designed a reusable `Campaign Card` component with a clean, low-profile **Empty State** (`Check back here for current updates`) instead of hardcoding static notice copy or non-primary hotlines (`1800 675 888`). Guaranteed layout robustness when no active campaign is running.
+
+### 2. Sponsor Logos (IFAW) & Copyright Compliance
+* **Constraint:** IFAW logo/partnership could not be independently verified in `docs/analysis.md` and was excluded from verified asset downloads.
+* **Decision:** Omitted unverified sponsor logo images in Pass 2 to maintain strict intellectual property and project asset compliance, prioritizing verified organisational photography.
+
+### 3. Navigation Hierarchy & Visual De-cluttering
+* **Issue:** Flattening all four get-involved pathways on the top nav caused excessive overcrowding and logo squeezing on medium viewports.
+* **Decision:** Consolidated pathways into a single `Get Involved ▾` dropdown menu and added a distinct `Login ▾` portal link, achieving a streamlined primary IA (`Home` | `About Us` | `Get Involved ▾` | `Donate` | `Contact Us` | `Login ▾`).
+
+### 4. Photography & Hero Image Distortion Fix
+* **Issue:** Multi-image hero cards experienced aspect-ratio distortion on ultra-wide desktop viewports.
+* **Decision:** Preserved the authenticated photo banner for immediate brand recognition while transitioning hero animal photography into a dedicated, responsive gallery/carousel component.

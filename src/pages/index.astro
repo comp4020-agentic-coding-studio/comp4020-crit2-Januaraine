@@ -9,28 +9,39 @@ const getInvolvedCards = [
     description:
       "A $40 annual membership supports our work and is the first step toward volunteering or caring for wildlife.",
     href: `${SITE_ROOT}/get-involved/become-a-member`,
-    image: null,
+    icon: "M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3 2.5-5 6-5s6 2 6 5M14 20c0-2.5 2-4.5 5-4.5s5 2 5 4.5",
   },
   {
     title: "Become a Volunteer",
     description:
       "Help without hands-on animal care — phone duty, transport, pouch-knitting, aviary building, and more.",
     href: `${SITE_ROOT}/become-a-volunteer`,
-    image: "card-become-a-volunteer.jpg",
+    icon: "M7 11V7a2 2 0 0 1 4 0v5m0-4a2 2 0 0 1 4 0v4m0-3a2 2 0 0 1 4 0v5c0 3.5-2.5 6-6 6h-1c-2.5 0-4-1-5.5-3L4 15c-.5-.7-.3-1.5.5-1.8.7-.3 1.3 0 1.8.6L8 16",
   },
   {
     title: "Become a Carer",
     description:
       "Take injured, sick, or orphaned native animals into your own home under licence, with full training provided.",
     href: `${SITE_ROOT}/become-a-carer`,
-    image: "card-become-a-carer.jpg",
+    icon: "M4 12 12 5l8 7M6 11v8a1 1 0 0 0 1 1h4v-5h2v5h4a1 1 0 0 0 1-1v-8",
   },
   {
     title: "Sponsor a Species",
     description:
       "Support the ongoing care of bats, birds, possums, reptiles, or wombats with a recurring sponsorship.",
     href: `${SITE_ROOT}/sponsor-a-species`,
-    image: "card-sponsor-a-species.jpg",
+    icon: "M9 8.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM15 8.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM6 12.5A1.5 1.5 0 1 1 3 12.5a1.5 1.5 0 0 1 3 0zM18 12.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM12 12c-2.5 0-5 2-5 4.5S9 20 12 20s5-1 5-3.5S14.5 12 12 12z",
+  },
+];
+
+const galleryPhotos = [
+  {
+    src: "card-become-a-volunteer.jpg",
+    alt: "An ACT Wildlife volunteer helping care for a rescued flying-fox",
+  },
+  {
+    src: "card-become-a-carer.jpg",
+    alt: "An ACT Wildlife carer looking after a rescued native animal at home",
   },
 ];
 ---
@@ -39,44 +50,116 @@ const getInvolvedCards = [
   title="ACT Wildlife — Rescue Rehabilitate Release"
   description="ACT Wildlife is a not-for-profit organisation rescuing, rehabilitating, and releasing native wildlife across the ACT."
 >
-  <div class="hero">
-    <img
-      class="hero-bg"
-      src="images/homepage/hero-banner.jpg"
-      alt="An ACT Wildlife carer holding a rescued native animal"
-    />
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>Rescue Rehabilitate Release</h1>
-      <p>
-        ACT Wildlife is a not-for-profit organisation dedicated to the
-        rescue, rehabilitation, and release of native animals across the
-        ACT.
-      </p>
-      <a class="hotline-pill large pulse" href="tel:0432300033">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            fill="currentColor"
-            d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
-          ></path>
-        </svg>
-        <span>24/7 Animal Rescue Hotline: 0432 300 033</span>
-      </a>
+  <section
+    class="hero-carousel"
+    aria-roledescription="carousel"
+    aria-label="Featured"
+    data-carousel
+    data-autoplay="7000"
+  >
+    <div class="hero-slide" data-slide>
+      <img
+        class="hero-bg"
+        src="images/homepage/hero-banner.jpg"
+        alt="An ACT Wildlife carer holding a rescued native animal"
+      />
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Rescue Rehabilitate Release</h1>
+        <p>
+          ACT Wildlife is a not-for-profit organisation dedicated to the
+          rescue, rehabilitation, and release of native animals across the
+          ACT. Rescuing, rehabilitating, and releasing native wildlife across
+          the ACT since 1993.{" "}
+          <a href={`${SITE_ROOT}/about`}>Learn about our mission →</a>
+        </p>
+        <a class="hotline-pill large pulse" href="tel:0432300033">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              fill="currentColor"
+              d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
+            ></path>
+          </svg>
+          <span>24/7 Animal Rescue Hotline: 0432 300 033</span>
+        </a>
+      </div>
     </div>
-  </div>
 
-  <div class="mission-strip" data-animate>
-    <p>
-      Rescuing, rehabilitating, and releasing native wildlife across the ACT
-      since 1993. <a href={`${SITE_ROOT}/about`}>Learn about our mission →</a>
-    </p>
-  </div>
-
-  <section class="notices" aria-labelledby="notices-heading">
-    <div class="notice-card" data-animate>
-      <h2 id="notices-heading">Notices &amp; Current Campaigns</h2>
-      <p>Check back here for current updates.</p>
+    <div class="hero-slide notice-slide" data-slide hidden>
+      <div class="notice-panel">
+        <h2>Notices &amp; Current Campaigns</h2>
+        <div class="notice-item">
+          <h3>Bird Flu (Avian Influenza) — Update</h3>
+          <p>
+            ACT Wildlife is monitoring the current bird flu situation and
+            following the latest advice. If you find a sick or dead bird,
+            report it to the Emergency Animal Disease Hotline on{" "}
+            <strong>1800 675 888</strong> — a separate government hotline
+            for reporting bird flu, not an ACT Wildlife number. For sick,
+            injured, or orphaned native wildlife, use our own 24/7 hotline
+            above. More information:{" "}
+            <a href="http://www.birdflu.gov.au/" rel="noopener">birdflu.gov.au</a>.
+          </p>
+        </div>
+        <div class="notice-item">
+          <h3>Wildlife Friendly Netting Swap</h3>
+          <p>
+            Swap your fruit-tree netting for wildlife-safe netting — the ACT
+            banned large-aperture netting in April 2024. Upcoming swap
+            sessions run 10:30am and 12:30pm on Saturdays 29 August,
+            12 September, 26 September, and 10 October 2026 (ACT residents
+            only).
+          </p>
+        </div>
+      </div>
     </div>
+
+    <button class="carousel-control carousel-prev" type="button" aria-label="Previous slide" data-carousel-prev>
+      ‹
+    </button>
+    <button class="carousel-control carousel-next" type="button" aria-label="Next slide" data-carousel-next>
+      ›
+    </button>
+    <div class="carousel-indicators" aria-label="Choose slide">
+      <button
+        type="button"
+        class="carousel-dot"
+        data-carousel-dot="0"
+        aria-label="Show slide 1: Rescue, Rehabilitate, Release"
+        aria-current="true"
+      ></button>
+      <button
+        type="button"
+        class="carousel-dot"
+        data-carousel-dot="1"
+        aria-label="Show slide 2: Notices & Current Campaigns"
+        aria-current="false"
+      ></button>
+    </div>
+  </section>
+
+  <section class="gallery" aria-labelledby="gallery-heading" data-animate data-carousel>
+    <h2 class="section-heading" id="gallery-heading">From Our Rescues</h2>
+    <div class="gallery-viewport">
+      {
+        galleryPhotos.map((photo, index) => (
+          <img
+            class="gallery-slide"
+            data-slide
+            src={`images/homepage/${photo.src}`}
+            alt={photo.alt}
+            hidden={index !== 0}
+          />
+        ))
+      }
+      <button class="carousel-control carousel-prev" type="button" aria-label="Previous photo" data-carousel-prev>
+        ‹
+      </button>
+      <button class="carousel-control carousel-next" type="button" aria-label="Next photo" data-carousel-next>
+        ›
+      </button>
+    </div>
+    <p class="gallery-status" aria-live="polite" data-carousel-status>1 / {galleryPhotos.length}</p>
   </section>
 
   <section class="get-involved" aria-labelledby="get-involved-heading">
@@ -88,22 +171,15 @@ const getInvolvedCards = [
       {
         getInvolvedCards.map((card, index) => (
           <div class="card" data-animate style={`--delay: ${index * 100}ms`}>
-            {card.image ? (
-              <img
-                src={`images/homepage/${card.image}`}
-                alt={`${card.title} — ACT Wildlife`}
-              />
-            ) : (
-              <div class="card-icon-panel" role="img" aria-label={`${card.title} — ACT Wildlife`}>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3 2.5-5 6-5s6 2 6 5M14 20c0-2.5 2-4.5 5-4.5s5 2 5 4.5"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  ></path>
-                </svg>
-              </div>
-            )}
+            <div class="card-icon-panel" role="img" aria-label={`${card.title} — ACT Wildlife`}>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d={card.icon}
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </div>
             <div class="card-body">
               <h3>{card.title}</h3>
               <p>{card.description}</p>
@@ -116,8 +192,13 @@ const getInvolvedCards = [
   </section>
 
   <section class="donation-cta" aria-labelledby="donate-heading" data-animate>
-    <h2 id="donate-heading">Support Our Work</h2>
-    <p>Your donation means everything to our wildlife.</p>
-    <a class="button-donate" href={`${SITE_ROOT}/donate`}>Donate to Support Our Work</a>
+    <div class="donation-cta-inner">
+      <h2 id="donate-heading">Support Our Work</h2>
+      <p>Your donation means everything to our wildlife.</p>
+      <a class="button-donate" href={`${SITE_ROOT}/donate`}>Donate to Support Our Work</a>
+      <p class="sponsor-note">
+        Founded with early support from IFAW and the ACT Herpetological Association.
+      </p>
+    </div>
   </section>
 </BaseLayout>

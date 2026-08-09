@@ -21,47 +21,132 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
   <body>
     <header class="site-header" id="site-header">
       <div class="header-inner">
-        <a class="logo" href="./">
-          <img src="images/homepage/logo-primary.png" alt="ACT Wildlife home" />
+
+        <!-- Logo -->
+        <a class="logo" href="./" aria-label="ACT Wildlife home">
+          <img
+            src="images/homepage/logo-primary.png"
+            alt="ACT Wildlife"
+          />
         </a>
-        <nav class="site-nav" id="site-nav" aria-label="Main">
-          <ul>
-            <li><a href="./">Home</a></li>
-            <li>
-              <details class="nav-dropdown">
-                <summary>Get Involved</summary>
-                <ul>
-                  <li><a href={`${SITE_ROOT}/get-involved/become-a-member`}>Become a Member</a></li>
-                  <li><a href={`${SITE_ROOT}/become-a-volunteer`}>Become a Volunteer</a></li>
-                  <li><a href={`${SITE_ROOT}/become-a-carer`}>Become a Carer</a></li>
-                  <li><a href={`${SITE_ROOT}/sponsor-a-species`}>Sponsor a Species</a></li>
-                </ul>
-              </details>
-            </li>
-            <li><a href={`${SITE_ROOT}/about`}>About Us</a></li>
-            <li><a href={`${SITE_ROOT}/donate`}>Donate</a></li>
-            <li><a href={`${SITE_ROOT}/contact-us`}>Contact Us</a></li>
-            <li>
-              <details class="nav-dropdown">
-                <summary>Login</summary>
-                <ul>
-                  <li><a href={`${SITE_ROOT}/members-login`}>Members Login</a></li>
-                  <li><a href={`${SITE_ROOT}/wildman-login`}>Wildman Login</a></li>
-                </ul>
-              </details>
-            </li>
-          </ul>
-        </nav>
+
+        <!-- Desktop Navigation -->
+        <ul class="main-nav" id="main-nav">
+
+  <li>
+    <a href="./">Home</a>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="#get-involved">
+      Get Involved
+      <span class="dropdown-arrow">⌄</span>
+    </a>
+
+    <ul class="dropdown-menu">
+      <li>
+        <a href={`${SITE_ROOT}/get-involved/become-a-member`}>
+          Become a Member
+        </a>
+      </li>
+      <li>
+        <a href={`${SITE_ROOT}/become-a-volunteer`}>
+          Become a Volunteer
+        </a>
+      </li>
+      <li>
+        <a href={`${SITE_ROOT}/become-a-carer`}>
+          Become a Carer
+        </a>
+      </li>
+      <li>
+        <a href={`${SITE_ROOT}/sponsor-a-species`}>
+          Sponsor a Species
+        </a>
+      </li>
+    </ul>
+  </li>
+
+  <li class="has-dropdown">
+    <a href="#training">
+      Training
+      <span class="dropdown-arrow">⌄</span>
+    </a>
+
+    <ul class="dropdown-menu">
+      <li><a href="#">Orientation</a></li>
+      <li><a href="#">Bat Courses</a></li>
+      <li><a href="#">Bird Courses</a></li>
+      <li><a href="#">Phone and Transport</a></li>
+      <li><a href="#">Possum Courses</a></li>
+      <li><a href="#">Reptile Course</a></li>
+      <li><a href="#">Wombat Course</a></li>
+      <li><a href="#">Training Calendar</a></li>
+    </ul>
+  </li>
+
+  <li>
+    <a href={`${SITE_ROOT}/about`}>About Us</a>
+  </li>
+
+  <li>
+    <a href={`${SITE_ROOT}/contact-us`}>Contact Us</a>
+  </li>
+
+</ul>
+
+        <!-- Right side actions -->
+        <div class="header-actions">
+
+          <!-- Hotline -->
+          <a
+            class="header-hotline"
+            href="tel:0432300033"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 0 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
+              ></path>
+            </svg>
+            <span>0432 300 033</span>
+          </a>
+
+          <!-- Login -->
+          <details class="header-login">
+            <summary>Login</summary>
+            <div class="header-login-menu">
+              <a href={`${SITE_ROOT}/members-login`}>
+                Members Login
+              </a>
+              <a href={`${SITE_ROOT}/wildman-login`}>
+                Wildman Login
+              </a>
+            </div>
+          </details>
+
+          <!-- Donate -->
+          <a
+            class="header-donate"
+            href={`${SITE_ROOT}/donate`}
+          >
+            Donate
+          </a>
+
+        </div>
+
+        <!-- Mobile menu button -->
         <button
           class="nav-toggle"
           id="nav-toggle"
           type="button"
           aria-expanded="false"
-          aria-controls="site-nav"
+          aria-controls="main-nav"
           aria-label="Toggle navigation menu"
         >
           <span class="nav-toggle-bars"></span>
         </button>
+
       </div>
     </header>
     <div class="nav-backdrop" id="nav-backdrop"></div>
@@ -143,7 +228,7 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
 
     <script>
       const header = document.getElementById("site-header");
-      const nav = document.getElementById("site-nav");
+      const nav = document.getElementById("main-nav");
       const toggle = document.getElementById("nav-toggle");
       const backdrop = document.getElementById("nav-backdrop");
 

@@ -73,7 +73,7 @@ const galleryPhotos = [
 
   <section class="notices" aria-labelledby="notices-heading">
     <div class="notice-panel">
-      <h2 id="notices-heading">Notices &amp; Current Campaigns</h2>
+      <h2 class="section-heading" id="notices-heading" data-animate>Notices &amp; Current Campaigns</h2>
       <div class="notice-grid">
         <div class="notice-item notice-alert">
           <span class="notice-tag">
@@ -90,9 +90,8 @@ const galleryPhotos = [
             following the latest advice. If you find a sick or dead bird,
             report it to the Emergency Animal Disease Hotline on{" "}
             <span class="notice-highlight">
-              <strong>1800 675 888</strong> — a separate government hotline
-              for reporting bird flu, not an ACT Wildlife number.
-            </span>{" "}
+              <span class="notice-highlight-primary">1800 675 888</span>
+            </span>.{" "}
             For sick, injured, or orphaned native wildlife, use our own 24/7
             hotline above.{" "}
             <span class="notice-more-info">
@@ -117,10 +116,8 @@ const galleryPhotos = [
             banned large-aperture netting in April 2024. Upcoming swap
             sessions run{" "}
             <span class="notice-highlight">
-              <strong>
-                10:30am and 12:30pm on Saturdays 29 August, 12 September,
-                26 September, and 10 October 2026
-              </strong>
+              <span class="notice-highlight-primary">10:30am and 12:30pm on Saturdays</span>
+              <span class="notice-highlight-secondary">29 August · 12 September · 26 September · 10 October 2026</span>
             </span>{" "}
             (ACT residents only).
           </p>
@@ -158,28 +155,23 @@ const galleryPhotos = [
     </div>
   </section>
 
-  <section class="gallery" aria-labelledby="gallery-heading" data-animate data-carousel>
+  <section class="gallery" aria-labelledby="gallery-heading" data-animate>
     <h2 class="section-heading" id="gallery-heading">From Our Rescues</h2>
-    <div class="gallery-viewport">
-      {
-        galleryPhotos.map((photo, index) => (
-          <img
-            class="gallery-slide"
-            data-slide
-            src={`images/homepage/${photo.src}`}
-            alt={photo.alt}
-            hidden={index !== 0}
-          />
-        ))
-      }
-      <button class="carousel-control carousel-prev" type="button" aria-label="Previous photo" data-carousel-prev>
-        ‹
-      </button>
-      <button class="carousel-control carousel-next" type="button" aria-label="Next photo" data-carousel-next>
-        ›
-      </button>
+    <div class="rescues-marquee">
+      <div class="rescues-track">
+        {
+          [...galleryPhotos, ...galleryPhotos, ...galleryPhotos, ...galleryPhotos].map((photo, index) => (
+            <div class="rescue-card">
+              <img
+                src={`images/homepage/${photo.src}`}
+                alt={index < galleryPhotos.length ? photo.alt : ""}
+                aria-hidden={index < galleryPhotos.length ? undefined : "true"}
+              />
+            </div>
+          ))
+        }
+      </div>
     </div>
-    <p class="gallery-status" aria-live="polite" data-carousel-status>1 / {galleryPhotos.length}</p>
   </section>
 
   <section class="donation-cta" aria-labelledby="donate-heading" data-animate>

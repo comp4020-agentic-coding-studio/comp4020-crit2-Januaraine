@@ -615,18 +615,14 @@ h3 {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 32rem;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--gutter);
   color: #fff;
-  padding: var(--space-5) 3.5rem var(--space-5) 4.5rem;
-}
-
-@media (width >= 1024px) {
-  .hero-content {
-    padding-left: 8rem;
-  }
 }
 
 .hero-content h1 {
+  max-width: 24rem;
   font-size: clamp(1.75rem, 4.5vw + 1rem, 3.5rem);
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -643,7 +639,7 @@ h3 {
 }
 
 .mission-link {
-  display: inline-block;
+  display: block;
   margin: 0 0 var(--space-4);
 }
 
@@ -766,26 +762,34 @@ h3 {
 }
 
 .notice-highlight {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
   margin: 0.6rem 0;
-  padding: 0.6rem 0.85rem;
+  padding: 0.65rem 0.9rem;
   background: var(--color-primary-tint);
   border-radius: var(--radius);
-  color: var(--color-ink);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
-.notice-highlight strong {
+.notice-highlight-primary {
   color: var(--color-primary-deep);
-  font-size: 1.05rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.notice-highlight-secondary {
+  color: var(--color-ink-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .notice-alert .notice-highlight {
   background: var(--color-accent-tint);
 }
 
-.notice-alert .notice-highlight strong {
+.notice-alert .notice-highlight-primary {
   color: var(--color-accent-hover);
 }
 
@@ -794,63 +798,6 @@ h3 {
   margin-top: 0.75rem;
   font-size: 0.85rem;
   color: var(--color-ink-muted);
-}
-
-/* Carousel controls, shared by the hero carousel and the photo gallery */
-.carousel-control {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 2rem;
-  height: 2rem;
-  border: none;
-  border-radius: var(--radius-pill);
-  background: rgb(255 255 255 / 70%);
-  color: var(--color-ink);
-  font-size: 1.1rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: background 150ms ease;
-  z-index: 3;
-}
-
-.carousel-control:hover {
-  background: rgb(255 255 255 / 95%);
-}
-
-.carousel-prev {
-  left: var(--space-2);
-}
-
-.carousel-next {
-  right: var(--space-2);
-}
-
-.carousel-indicators {
-  position: absolute;
-  bottom: var(--space-2);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 3;
-  display: flex;
-  gap: 0.5rem;
-  padding: 0.35rem 0.6rem;
-  background: rgb(0 0 0 / 25%);
-  border-radius: var(--radius-pill);
-}
-
-.carousel-dot {
-  width: 0.6rem;
-  height: 0.6rem;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: rgb(255 255 255 / 55%);
-  cursor: pointer;
-}
-
-.carousel-dot[aria-current="true"] {
-  background: #fff;
 }
 
 /* Sections */
@@ -886,35 +833,64 @@ section {
   font-size: 1.05rem;
 }
 
-/* Photo gallery */
+/* Photo gallery — CSS-only infinite marquee */
 .gallery {
   padding: clamp(2.5rem, 1.8rem + 2.5vw, 4rem) 0;
   text-align: center;
 }
 
-.gallery-viewport {
-  position: relative;
-  width: min(40rem, 100% - 2 * var(--gutter));
-  aspect-ratio: 16 / 10;
+.rescues-marquee {
+  --rescue-card-width: 20rem;
+  --rescue-card-gap: var(--space-4);
+  --rescue-marquee-duration: 64s;
+  --rescue-set-width: calc((var(--rescue-card-width) + var(--rescue-card-gap)) * 4);
+
+  width: min(var(--container-width), 100% - 2 * var(--gutter));
   margin: var(--space-3) auto 0;
+  overflow: hidden;
+}
+
+.rescues-track {
+  display: flex;
+  width: max-content;
+  gap: var(--rescue-card-gap);
+  animation: rescues-scroll var(--rescue-marquee-duration) linear infinite;
+}
+
+.rescues-marquee:hover .rescues-track {
+  animation-play-state: paused;
+}
+
+.rescue-card {
+  flex: 0 0 var(--rescue-card-width);
+  aspect-ratio: 4 / 3;
   border-radius: 1rem;
   overflow: hidden;
   background: var(--color-primary-tint);
   box-shadow: var(--shadow-card);
 }
 
-.gallery-slide {
-  position: absolute;
-  inset: 0;
+.rescue-card img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.gallery-status {
-  margin: var(--space-2) 0 0;
-  font-size: 0.85rem;
-  color: var(--color-ink-muted);
+@keyframes rescues-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-1 * var(--rescue-set-width)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rescues-track {
+    animation: none;
+  }
 }
 
 /* Get involved */
@@ -1258,6 +1234,12 @@ address {
     max-width: none;
     font-size: 1rem;
     margin: 0 0 var(--space-2);
+  }
+
+  .rescues-marquee {
+    --rescue-card-width: 13rem;
+    --rescue-card-gap: var(--space-3);
+    --rescue-marquee-duration: 44s;
   }
 
   .nav-backdrop {

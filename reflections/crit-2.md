@@ -2,18 +2,7 @@
 
 **What was the breakthrough that moved the work forward?**
 
-The gallery bug looked like a JavaScript problem — the "From Our Rescues"
-photo counter advanced but the picture never changed. I nearly rewrote the
-slide-state script before checking the CSS. Reading `global.css` showed a
-global `img { display: block }` rule beating the browser's own `[hidden]`
-rule under normal cascade precedence (author origin beats user-agent origin
-regardless of specificity), so every slide stayed painted no matter what the
-script set `hidden` to. The breakthrough was realising the JS state was
-already correct and the fix belonged in CSS, one line, not in the script.
-The same instinct — check the rendered page before touching the code — also
-caught two things `pnpm check` couldn't: a source-formatting quirk that
-silently ate a space before an inline link, and a mobile-only layout overlap
-between the carousel arrows and the slide text.
+One of the biggest problems I encountered was that the Agent often treated a small visual or interaction issue as an opportunity to redesign the surrounding component. For example, when I asked for specific changes to the header, mobile navigation, and responsive layout, some changes unintentionally affected existing behaviour — including the mobile menu overlay, dropdown interactions, and navigation links. The breakthrough was learning to stop asking for broad visual changes and instead describe the exact behaviour that must remain unchanged, the specific element that was causing the problem, and the smallest change I wanted. When the mobile navigation toggle stopped responding, for example, I asked the Agent to inspect the actual event handlers, rendered stacking order, and CSS rather than guessing at the JavaScript. This revealed that the backdrop was sitting above the header and intercepting pointer events. The fix was therefore a small z-index and background change rather than another redesign of the navigation system.
 
 **What did this work change about who I want to be as a software developer?**
 

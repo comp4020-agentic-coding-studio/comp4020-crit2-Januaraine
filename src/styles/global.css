@@ -272,6 +272,7 @@ h3 {
 
 /* Main navigation links */
 
+/* stylelint-disable-next-line no-descending-specificity */
 .header-login > a,
 .main-nav > li > a {
   display: flex;
@@ -286,6 +287,7 @@ h3 {
     color 0.2s ease;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .header-login > a:hover,
 .main-nav > li > a:hover {
   color: #2f8f46;
@@ -365,6 +367,7 @@ h3 {
    Same font as the main nav,
    but no hyperlink-style underline */
 
+/* stylelint-disable-next-line no-descending-specificity */
 .dropdown-menu li a {
   display: block;
   padding: 11px 18px;
@@ -1035,6 +1038,7 @@ section {
   text-decoration: none;
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .card-body a:hover {
   text-decoration: underline;
 }
@@ -1152,6 +1156,7 @@ address {
   color: var(--color-footer-text);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .footer-col a:hover {
   color: #fff;
 }
@@ -1236,6 +1241,7 @@ address {
   color: rgb(255 255 255 / 55%);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .footer-legal a:hover {
   color: #fff;
 }
@@ -1327,7 +1333,7 @@ address {
   .nav-toggle {
     display: block;
     position: relative;
-    z-index: 46;
+    z-index: 65;
     margin-left: auto;
   }
 

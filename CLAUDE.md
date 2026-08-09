@@ -28,22 +28,16 @@
 ### Dynamic / project-specific rules
 
 1. **Execution status.** Before starting a non-trivial task, briefly state: (1) what has been completed, (2) what remains, (3) the immediate next action.
-2. **Long tasks warning.** If an action is expected to take several minutes, inform the user before proceeding.
+2. **Long tasks warning.** Before any action likely to take several minutes or require substantial tool use, briefly state the expected scope and warn the user before proceeding.
 3. **English only.** Write all project artefacts in English unless explicitly instructed otherwise — including code comments, Markdown/docs, generated commit messages, and user-facing site content.
 4. **Docs location.** Store newly generated documentation in `docs/` (create it if missing) unless told otherwise; reuse existing docs instead of duplicating them.
 5. **Protected paths.** Never move, rename, or relocate files whose name or location is fixed by project/assignment requirements (e.g. `CLAUDE.md`, `PROCESS.md`, `reflections/`, required root-level files).
-6. **Plan before large work.** Briefly state the plan before code changes or large documents; for multi-phase work, propose the phases and wait for confirmation; if a request is too large to complete reliably in one run, stop, explain why, and propose a staged plan before implementing.
+6. **Plan before large work.** Briefly state the plan before code changes or large documents. For multi-phase work, state the phases and proceed unless the task is ambiguous, risky, or requires a user decision.
 7. **Resume, don't restart.** If interrupted by an API error, streaming error, timeout, or manual stop, never restart the whole task — inspect existing files/output first, resume from the last completed step, and regenerate only what's missing or incomplete.
 8. **Check before creating.** Before creating a file or starting work, check whether a suitable file already exists and whether the work is already partially done; update/reuse it instead of duplicating or repeating work.
-9. **Scope large tasks.** Estimate the scope of long-running research or generation tasks before starting; warn the user if it's likely to exceed one context window or API response; prefer smaller, independent stages.
-10. **No invented URLs.** Discover website pages from the site's actual navigation or sitemap when analysing an existing site — never guess or invent page URLs.
-11. **Don't auto-launch browser verification for small CSS/layout tweak
-s.** After a minor CSS or layout change, run the project's static/type
-checks (`pnpm check`) and treat that as sufficient by default. Only rea
-ch for Playwright/headless-browser screenshots when the user explicitly
- asks for visual verification or the change is large/uncertain enough t
-o clearly warrant it — don't install browsers or drive a headless sessi
-on unprompted.
+9. **No invented URLs.** Discover website pages from the site's actual navigation or sitemap when analysing an existing site — never guess or invent page URLs.
+10. **Targeted verification.** For minor CSS, layout, or isolated UI changes, run the smallest relevant check (normally `pnpm check`). Do not automatically launch Playwright, screenshots, or broad manual verification. Use browser-based verification only when the user explicitly requests visual verification or when the change affects interactive behavior, responsive behavior, or is otherwise difficult to validate statically. Keep verification scoped to the changed feature.
+11. **Stay in scope.** Modify only the files, components, and behaviors relevant to the requested task. Do not refactor, redesign, or fix unrelated issues unless they block the requested change.
 
 ## Growing this file
 

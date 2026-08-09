@@ -38,7 +38,7 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
   </li>
 
   <li class="has-dropdown">
-    <a href="#get-involved">
+    <a href={`${SITE_ROOT}/get-involved`}>
       Get Involved
       <span class="dropdown-arrow">⌄</span>
     </a>
@@ -68,7 +68,7 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
   </li>
 
   <li class="has-dropdown">
-    <a href="#training">
+    <a href={`${SITE_ROOT}/training`}>
       Training
       <span class="dropdown-arrow">⌄</span>
     </a>
@@ -113,17 +113,24 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
           </a>
 
           <!-- Login -->
-          <details class="header-login">
-            <summary>Login</summary>
-            <div class="header-login-menu">
-              <a href={`${SITE_ROOT}/members-login`}>
-                Members Login
-              </a>
-              <a href={`${SITE_ROOT}/wildman-login`}>
-                Wildman Login
-              </a>
-            </div>
-          </details>
+          <div class="header-login has-dropdown">
+            <a href="#login">
+              Login
+              <span class="dropdown-arrow">⌄</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href={`${SITE_ROOT}/members-login`}>
+                  Members Login
+                </a>
+              </li>
+              <li>
+                <a href={`${SITE_ROOT}/wildman-login`}>
+                  Wildman Login
+                </a>
+              </li>
+            </ul>
+          </div>
 
           <!-- Donate -->
           <a
@@ -153,14 +160,14 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
     <main>
       <slot />
     </main>
-    <a class="hotline-pill floating-hotline" href="tel:0432300033">
+    <a class="hotline-pill floating-hotline" id="floating-hotline" href="tel:0432300033">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path
           fill="currentColor"
           d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
         ></path>
       </svg>
-      <span><span class="hotline-label">24/7 Hotline: </span>0432 300 033</span>
+      <span class="hotline-text"><span class="hotline-label">24/7 Hotline: </span>0432 300 033</span>
     </a>
     <footer class="site-footer">
       <div class="footer-inner">
@@ -269,6 +276,27 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
         const target = event.target;
         if (target instanceof HTMLElement && target.tagName === "A") {
           closeNav();
+        }
+      });
+
+      const hotline = document.getElementById("floating-hotline");
+
+      hotline?.addEventListener("click", (event) => {
+        if (!hotline.classList.contains("is-open")) {
+          event.preventDefault();
+          hotline.classList.add("is-open");
+        }
+      });
+
+      hotline?.addEventListener("mouseleave", () => {
+        hotline.classList.remove("is-open");
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!hotline?.classList.contains("is-open")) return;
+        const target = event.target;
+        if (target instanceof Node && !hotline.contains(target)) {
+          hotline.classList.remove("is-open");
         }
       });
 

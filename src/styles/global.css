@@ -25,7 +25,7 @@
   --shadow-header: 0 2px 10px rgb(0 0 0 / 8%);
   --shadow-card: 0 1px 4px rgb(0 0 0 / 8%);
   --shadow-card-hover: 0 8px 20px rgb(0 0 0 / 12%);
-  --container-width: 64rem;
+  --container-width: 80rem;
   --header-max-width: 96rem;
   --reveal-duration: 500ms;
   --reveal-distance: 20px;
@@ -125,7 +125,7 @@ h3 {
 }
 
 .header-inner {
-  max-width: var(--header-max-width);
+  max-width: 100%;
   margin: 0 auto;
   min-height: 4.75rem;
   padding: 0 var(--space-3);
@@ -191,14 +191,22 @@ h3 {
   gap: 0.5rem;
 }
 
+/* Shared top-level header navigation typography:
+   Home / Get Involved / Training / About Us / Contact Us / Login / phone number */
+.header-hotline,
+.header-login > a,
+.main-nav > li > a {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 .header-hotline {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
   color: var(--color-ink);
   text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 600;
 }
 
 .header-hotline svg {
@@ -216,9 +224,9 @@ h3 {
   justify-content: center;
   min-height: 2.5rem;
   padding: 0.55rem 1.1rem;
-  background: var(--color-primary-deep);
+  background: var(--color-accent);
   color: #fff;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius);
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 700;
@@ -228,59 +236,12 @@ h3 {
 }
 
 .header-donate:hover {
-  background: var(--color-primary-hover);
+  background: var(--color-accent-hover);
   transform: translateY(-1px);
 }
 
 .header-login {
   position: relative;
-}
-
-.header-login summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 0.55rem 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--color-ink);
-}
-
-.header-login summary::-webkit-details-marker {
-  display: none;
-}
-
-.header-login summary::after {
-  content: " ▾";
-  font-size: 0.7em;
-}
-
-.header-login-menu {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
-  min-width: 12rem;
-  padding: 0.5rem;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.header-login-menu a {
-  padding: 0.65rem 0.75rem;
-  color: var(--color-ink);
-  text-decoration: none;
-  border-radius: 0.4rem;
-  font-size: 0.85rem;
-}
-
-.header-login-menu a:hover {
-  background: var(--color-primary-tint);
-  color: var(--color-primary-deep);
 }
 
 /* =========================
@@ -304,6 +265,7 @@ h3 {
 
 /* Main navigation links */
 
+.header-login > a,
 .main-nav > li > a {
   display: flex;
   align-items: center;
@@ -311,15 +273,13 @@ h3 {
   padding: 14px 16px;
   color: #17202a;
   text-decoration: none;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1;
   border-radius: 8px;
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
 }
 
+.header-login > a:hover,
 .main-nav > li > a:hover {
   color: #2f8f46;
   background-color: #f3f6f3;
@@ -368,6 +328,13 @@ h3 {
 }
 
 
+/* Login sits at the far right of the header, so its dropdown
+   aligns to the right edge instead of the left */
+.header-login > .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
 /* Show dropdown when hovering the ENTIRE parent */
 
 .has-dropdown:hover > .dropdown-menu,
@@ -394,7 +361,7 @@ h3 {
 .dropdown-menu li a {
   display: block;
   padding: 11px 18px;
-  color: #2f8f46;
+  color: #17202a;
   text-decoration: none;
   font-size: 15px;
   font-weight: 500;
@@ -406,8 +373,9 @@ h3 {
 }
 
 
-.dropdown-menu li a:hover {
-  color: #236d35;
+.dropdown-menu li a:hover,
+.dropdown-menu li a[aria-current="page"] {
+  color: #2f8f46;
   background-color: #f1f7f2;
 }
 
@@ -531,6 +499,12 @@ h3 {
   flex-shrink: 0;
 }
 
+.floating-hotline svg {
+  width: 1.75rem;
+  height: 1.75rem;
+  flex-shrink: 0;
+}
+
 .hotline-pill.large {
   font-size: 1.15rem;
   padding: 0.9rem 1.75rem;
@@ -546,13 +520,48 @@ h3 {
   animation: hotline-pulse 2.4s ease-in-out infinite;
 }
 
-/* Floating 24/7 hotline button — always reachable, never covers content */
+/* Floating 24/7 hotline button — always reachable, never covers content.
+   Collapses to a circular icon-only button; expands leftward on hover/
+   focus/click while staying anchored to the same right edge. */
 .floating-hotline {
   position: fixed;
   right: var(--space-3);
-  bottom: var(--space-3);
+  bottom: 8rem;
   z-index: 40;
+  width: 4.5rem;
+  height: 4.5rem;
+  gap: 0;
+  padding: 0;
+  justify-content: center;
+  overflow: hidden;
   box-shadow: var(--shadow-card-hover);
+  transition: width 260ms ease, background 150ms ease;
+}
+
+.floating-hotline .hotline-text {
+  max-width: 0;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 1.15rem;
+  transition: max-width 260ms ease, opacity 200ms ease, margin-left 260ms ease;
+}
+
+.floating-hotline:hover,
+.floating-hotline:focus-visible,
+.floating-hotline.is-open {
+  width: min(22rem, calc(100vw - 2rem));
+  justify-content: flex-start;
+  padding: 0 1.5rem;
+}
+
+.floating-hotline:hover .hotline-text,
+.floating-hotline:focus-visible .hotline-text,
+.floating-hotline.is-open .hotline-text {
+  max-width: 18rem;
+  margin-left: 0.75rem;
+  opacity: 1;
 }
 
 @keyframes hotline-pulse {
@@ -682,7 +691,7 @@ h3 {
 
 @media (width >= 768px) {
   .notice-panel {
-    max-width: 52rem;
+    max-width: 60rem;
   }
 }
 
@@ -701,7 +710,7 @@ h3 {
 @media (width >= 768px) {
   .notice-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-4);
+    gap: var(--space-5);
   }
 }
 
@@ -1298,14 +1307,11 @@ address {
     padding: 0.75rem 1.25rem;
   }
 
-  .floating-hotline .hotline-label {
-    display: none;
-  }
-
   .floating-hotline {
     right: var(--space-2);
     bottom: var(--space-2);
-    padding: 0.6rem 0.8rem;
+    width: 3.75rem;
+    height: 3.75rem;
   }
 
   .footer-legal {

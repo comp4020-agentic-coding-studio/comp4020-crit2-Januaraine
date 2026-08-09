@@ -166,11 +166,25 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
       <div class="footer-inner">
         <div class="footer-col footer-brand">
           <a class="footer-logo" href="./">
-            <img src="images/homepage/logo-primary.png" alt="ACT Wildlife home" />
+            <img src="images/homepage/logo-footer.png" alt="ACT Wildlife home" />
           </a>
           <ul class="footer-social">
-            <li><a href="https://www.facebook.com/ACT.Wildlife">Facebook</a></li>
-            <li><a href="https://www.instagram.com/act_wildlife">Instagram</a></li>
+            <li>
+              <a href="https://www.facebook.com/ACT.Wildlife" aria-label="ACT Wildlife on Facebook" title="Facebook">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/act_wildlife" aria-label="ACT Wildlife on Instagram" title="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -179,37 +193,24 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
           <ul>
             <li><a href="./">Home</a></li>
             <li><a href="#get-involved-heading">Get Involved</a></li>
+            <li><a href="#training">Training</a></li>
             <li><a href={`${SITE_ROOT}/about`}>About Us</a></li>
-            <li><a href={`${SITE_ROOT}/donate`}>Donate</a></li>
             <li><a href={`${SITE_ROOT}/contact-us`}>Contact Us</a></li>
+            <li><a href={`${SITE_ROOT}/donate`}>Donate</a></li>
           </ul>
         </nav>
 
         <div class="footer-col footer-contact">
           <h2>Contact</h2>
-          <a class="hotline-pill footer-hotline" href="tel:0432300033">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path
-                fill="currentColor"
-                d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.5 2.5.8 3.9.8.6 0 1 .4 1 1v3.5c0 .6-.4 1-1 1C10.6 21.3 2.7 13.4 2.7 3.7c0-.6.4-1 1-1H7.2c.6 0 1 .4 1 1 0 1.4.3 2.7.8 3.9.2.3.1.7-.2 1L6.6 10.8z"
-              ></path>
-            </svg>
-            <span>24/7 Rescue Hotline: 0432 300 033</span>
-          </a>
+          <p class="footer-label">24/7 Rescue Hotline</p>
+          <a class="footer-tel" href="tel:0432300033">0432 300 033</a>
           <p class="footer-label">Find Us</p>
           <address>
-            Jerrabomberra Wetlands, Dairy Rd, Fyshwick ACT 2609<br />
-            PO Box 7237, Duffy 2611, ACT
+            Jerrabomberra Wetlands<br />
+            Dairy Rd, Fyshwick ACT 2609
           </address>
           <p class="footer-label">Office Hours</p>
           <p>Mon&ndash;Fri 9am&ndash;5pm<br />Sat 9am&ndash;3pm<br />Sun closed</p>
-          <p>ABN 84 737 023 161</p>
-        </div>
-
-        <div class="footer-col footer-support">
-          <h2>Support Our Work</h2>
-          <p>Your donation means everything to our wildlife.</p>
-          <a class="button-donate footer-donate" href={`${SITE_ROOT}/donate`}>Donate to Support Our Work</a>
         </div>
       </div>
       <div class="footer-legal">

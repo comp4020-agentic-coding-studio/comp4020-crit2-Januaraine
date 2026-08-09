@@ -1032,7 +1032,7 @@ section {
 .button-donate {
   display: inline-block;
   padding: 0.95rem 2.25rem;
-  background: var(--color-primary-deep);
+  background: var(--color-accent);
   color: #fff;
   border-radius: var(--radius);
   font-size: 1rem;
@@ -1047,7 +1047,7 @@ section {
 }
 
 .button-donate:hover {
-  background: var(--color-primary-hover);
+  background: var(--color-accent-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-card-hover);
 }
@@ -1089,13 +1089,13 @@ address {
 
 @media (width >= 1024px) {
   .footer-inner {
-    grid-template-columns: 1.1fr 1fr 1.2fr 1.2fr;
+    grid-template-columns: 1fr 1fr 1.3fr;
     gap: var(--space-4);
   }
 }
 
 .footer-col h2 {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #fff;
@@ -1128,13 +1128,10 @@ address {
 
 .footer-logo {
   display: inline-flex;
-  padding: 0.6rem 0.85rem;
-  background: #fff;
-  border-radius: 0.75rem;
 }
 
 .footer-logo img {
-  height: 2rem;
+  height: 7rem;
   width: auto;
 }
 
@@ -1144,34 +1141,38 @@ address {
   gap: var(--space-2);
   margin: var(--space-3) 0 0;
   padding: 0;
-  font-size: 0.9rem;
-}
-
-.footer-contact .hotline-pill {
-  margin-bottom: var(--space-1);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-.footer-hotline {
-  background: var(--color-primary);
-}
-
-.footer-hotline:hover {
-  background: var(--color-primary-hover);
-}
-
-.footer-support p {
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 10%);
   color: var(--color-footer-text);
+  transition: background 150ms ease, color 150ms ease;
 }
 
-.footer-donate {
-  margin-top: var(--space-2);
-  background: var(--color-primary);
-  box-shadow: none;
+/* stylelint-disable-next-line no-descending-specificity */
+.footer-social a:hover {
+  background: rgb(255 255 255 / 20%);
+  color: #fff;
 }
 
-.footer-donate:hover {
-  background: var(--color-primary-hover);
+/* stylelint-disable-next-line no-descending-specificity */
+.footer-social svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.footer-tel {
+  display: inline-block;
+  margin: 0 0 var(--space-1);
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .footer-legal {

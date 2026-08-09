@@ -257,6 +257,13 @@ h3 {
   list-style: none;
 }
 
+/* Login is duplicated as a top-level mobile nav item (reusing the same
+   header-login destinations) since .header-actions is hidden on mobile;
+   hidden here so it doesn't also appear in the desktop nav bar. */
+.login-nav-item {
+  display: none;
+}
+
 .main-nav > li {
   position: relative;
   margin: 0;
@@ -380,6 +387,12 @@ h3 {
 }
 
 @media (width <= 767px) {
+  /* Header must stay solid white on mobile, regardless of what
+     scrolls behind it (e.g. the hero banner's own background). */
+  .site-header {
+    background: #fff;
+  }
+
   .header-inner {
     display: flex;
     min-height: 4.25rem;
@@ -442,6 +455,10 @@ h3 {
     width: 100%;
   }
 
+  .login-nav-item {
+    display: block;
+  }
+
   .main-nav > li > a {
     width: 100%;
     padding: 0.9rem 1rem;
@@ -449,9 +466,13 @@ h3 {
     border-radius: 0.6rem;
   }
 
-  /* Dropdowns inside mobile menu: always expanded, no hover needed */
+  /* Dropdowns inside mobile menu: collapsed by default, expand on tap */
   .main-nav .dropdown-arrow {
-    display: none;
+    transition: transform 200ms ease;
+  }
+
+  .main-nav .has-dropdown.is-expanded > a .dropdown-arrow {
+    transform: rotate(180deg);
   }
 
   .main-nav .has-dropdown > .dropdown-menu {
@@ -460,12 +481,20 @@ h3 {
     visibility: visible;
     pointer-events: auto;
     transform: none;
-    margin: 0.25rem 0 0.5rem;
+    margin: 0;
     padding: 0;
     padding-left: 1rem;
     background: transparent;
     border: none;
     box-shadow: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 250ms ease;
+  }
+
+  .main-nav .has-dropdown.is-expanded > .dropdown-menu {
+    margin: 0.25rem 0 0.5rem;
+    max-height: 30rem;
   }
 
   .main-nav .dropdown-menu li a {
@@ -1213,12 +1242,28 @@ address {
 
 /* Responsive */
 @media (width <= 767px) {
+  /* Soft, section-based scroll snapping: proximity (not mandatory) so users
+     can still scroll past a section freely — only the major visual
+     sections below are snap targets, smaller content modules keep their
+     natural content-driven height. */
+  html {
+    scroll-snap-type: y proximity;
+    scroll-padding-top: var(--header-height, 4.25rem);
+  }
+
+  .hero-banner {
+    background: rgb(10 30 15);
+    padding-top: var(--header-height, 4.25rem);
+    scroll-snap-align: start;
+  }
+
   .hero-bg {
-    object-position: 50% 28%;
+    object-position: 50% 35%;
   }
 
   .hero-slide {
-    min-height: 24rem;
+    min-height: calc(100vh - var(--header-height, 4.25rem));
+    min-height: calc(100svh - var(--header-height, 4.25rem));
   }
 
   .hero-overlay {
@@ -1236,14 +1281,20 @@ address {
   }
 
   .hero-content h1 {
-    margin: 0 0 var(--space-1);
+    line-height: 1.3;
+    margin: 0 0 var(--space-3);
   }
 
   .hero-content p,
   .mission-link {
     max-width: none;
     font-size: 1rem;
-    margin: 0 0 var(--space-2);
+    margin: 0 0 var(--space-3);
+  }
+
+  .notices,
+  .donation-cta {
+    scroll-snap-align: start;
   }
 
   .rescues-marquee {
@@ -1255,8 +1306,8 @@ address {
   .nav-backdrop {
     position: fixed;
     inset: 0;
-    z-index: 55;
-    background: rgb(0 0 0 / 35%);
+    z-index: 45;
+    background: transparent;
     opacity: 0;
     visibility: hidden;
     transition:
@@ -1318,6 +1369,31 @@ address {
     flex-direction: column;
     text-align: center;
   }
+
+  .footer-inner {
+    text-align: center;
+  }
+
+  .footer-brand,
+  .footer-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-social {
+    justify-content: center;
+  }
+
+  .footer-col ul {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .footer-contact address {
+    text-align: center;
+  }
+
 
   /* Leave room so the fixed floating hotline button never covers the last
      row of footer content when scrolled to the bottom. */

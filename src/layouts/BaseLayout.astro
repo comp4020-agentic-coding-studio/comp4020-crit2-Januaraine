@@ -38,7 +38,7 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
   </li>
 
   <li class="has-dropdown">
-    <a href={`${SITE_ROOT}/get-involved`}>
+    <a href={`${SITE_ROOT}/get-involved`} aria-expanded="false">
       Get Involved
       <span class="dropdown-arrow">⌄</span>
     </a>
@@ -68,7 +68,7 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
   </li>
 
   <li class="has-dropdown">
-    <a href={`${SITE_ROOT}/training`}>
+    <a href={`${SITE_ROOT}/training`} aria-expanded="false">
       Training
       <span class="dropdown-arrow">⌄</span>
     </a>
@@ -91,6 +91,26 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
 
   <li>
     <a href={`${SITE_ROOT}/contact-us`}>Contact Us</a>
+  </li>
+
+  <li class="has-dropdown login-nav-item">
+    <a href="#login" aria-expanded="false">
+      Login
+      <span class="dropdown-arrow">⌄</span>
+    </a>
+
+    <ul class="dropdown-menu">
+      <li>
+        <a href={`${SITE_ROOT}/members-login`}>
+          Members Login
+        </a>
+      </li>
+      <li>
+        <a href={`${SITE_ROOT}/wildman-login`}>
+          Wildman Login
+        </a>
+      </li>
+    </ul>
   </li>
 
 </ul>
@@ -254,6 +274,10 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
         toggle?.classList.remove("is-open");
         document.body.classList.remove("nav-open");
         toggle?.setAttribute("aria-expanded", "false");
+        nav?.querySelectorAll("li.has-dropdown.is-expanded").forEach((item) => {
+          item.classList.remove("is-expanded");
+          item.querySelector(":scope > a")?.setAttribute("aria-expanded", "false");
+        });
       };
 
       toggle?.addEventListener("click", () => {
@@ -272,9 +296,26 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
         }
       });
 
+      const isMobileNav = () => window.matchMedia("(max-width: 767px)").matches;
+
+      nav?.querySelectorAll("li.has-dropdown > a").forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+          if (!isMobileNav()) {
+            return;
+          }
+          event.preventDefault();
+          const item = trigger.parentElement;
+          const isExpanded = item?.classList.toggle("is-expanded");
+          trigger.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+        });
+      });
+
       nav?.addEventListener("click", (event) => {
         const target = event.target;
         if (target instanceof HTMLElement && target.tagName === "A") {
+          if (isMobileNav() && target.parentElement?.classList.contains("has-dropdown")) {
+            return;
+          }
           closeNav();
         }
       });
@@ -311,6 +352,14 @@ const SITE_ROOT = "https://www.actwildlife.org.au";
           ticking = true;
         }
       });
+
+      const setHeaderHeightVar = () => {
+        if (header) {
+          document.documentElement.style.setProperty("--header-height", `${header.offsetHeight}px`);
+        }
+      };
+      setHeaderHeightVar();
+      window.addEventListener("resize", setHeaderHeightVar);
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 

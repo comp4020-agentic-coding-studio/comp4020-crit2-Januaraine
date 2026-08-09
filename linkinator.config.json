@@ -1,0 +1,6 @@
+{
+  "skip": [
+    "instagram\\.com",
+    "birdflu\\.gov\\.au"
+  ]
+}

@@ -50,14 +50,8 @@ const galleryPhotos = [
   title="ACT Wildlife — Rescue Rehabilitate Release"
   description="ACT Wildlife is a not-for-profit organisation rescuing, rehabilitating, and releasing native wildlife across the ACT."
 >
-  <section
-    class="hero-carousel"
-    aria-roledescription="carousel"
-    aria-label="Featured"
-    data-carousel
-    data-autoplay="7000"
-  >
-    <div class="hero-slide" data-slide>
+  <section class="hero-banner" aria-label="Featured">
+    <div class="hero-slide">
       <img
         class="hero-bg"
         src="images/homepage/hero-banner.jpg"
@@ -83,82 +77,49 @@ const galleryPhotos = [
         </a>
       </div>
     </div>
+  </section>
 
-    <div class="hero-slide notice-slide" data-slide hidden>
-      <div class="notice-panel">
-        <h2>Notices &amp; Current Campaigns</h2>
+  <section class="notices" aria-labelledby="notices-heading">
+    <div class="notice-panel">
+      <h2 id="notices-heading">Notices &amp; Current Campaigns</h2>
+      <div class="notice-grid">
         <div class="notice-item">
+          <span class="notice-tag">Bird Flu Update</span>
           <h3>Bird Flu (Avian Influenza) — Update</h3>
           <p>
             ACT Wildlife is monitoring the current bird flu situation and
             following the latest advice. If you find a sick or dead bird,
             report it to the Emergency Animal Disease Hotline on{" "}
-            <strong>1800 675 888</strong> — a separate government hotline
-            for reporting bird flu, not an ACT Wildlife number. For sick,
-            injured, or orphaned native wildlife, use our own 24/7 hotline
-            above. More information:{" "}
-            <a href="http://www.birdflu.gov.au/" rel="noopener">birdflu.gov.au</a>.
+            <span class="notice-highlight">
+              <strong>1800 675 888</strong> — a separate government hotline
+              for reporting bird flu, not an ACT Wildlife number.
+            </span>{" "}
+            For sick, injured, or orphaned native wildlife, use our own 24/7
+            hotline above.{" "}
+            <span class="notice-more-info">
+              More information:{" "}
+              <a href="http://www.birdflu.gov.au/" rel="noopener">birdflu.gov.au</a>.
+            </span>
           </p>
         </div>
         <div class="notice-item">
+          <span class="notice-tag">Netting Swap</span>
           <h3>Wildlife Friendly Netting Swap</h3>
           <p>
             Swap your fruit-tree netting for wildlife-safe netting — the ACT
             banned large-aperture netting in April 2024. Upcoming swap
-            sessions run 10:30am and 12:30pm on Saturdays 29 August,
-            12 September, 26 September, and 10 October 2026 (ACT residents
-            only).
+            sessions run{" "}
+            <span class="notice-highlight">
+              <strong>
+                10:30am and 12:30pm on Saturdays 29 August, 12 September,
+                26 September, and 10 October 2026
+              </strong>
+            </span>{" "}
+            (ACT residents only).
           </p>
         </div>
       </div>
     </div>
-
-    <button class="carousel-control carousel-prev" type="button" aria-label="Previous slide" data-carousel-prev>
-      ‹
-    </button>
-    <button class="carousel-control carousel-next" type="button" aria-label="Next slide" data-carousel-next>
-      ›
-    </button>
-    <div class="carousel-indicators" aria-label="Choose slide">
-      <button
-        type="button"
-        class="carousel-dot"
-        data-carousel-dot="0"
-        aria-label="Show slide 1: Rescue, Rehabilitate, Release"
-        aria-current="true"
-      ></button>
-      <button
-        type="button"
-        class="carousel-dot"
-        data-carousel-dot="1"
-        aria-label="Show slide 2: Notices & Current Campaigns"
-        aria-current="false"
-      ></button>
-    </div>
-  </section>
-
-  <section class="gallery" aria-labelledby="gallery-heading" data-animate data-carousel>
-    <h2 class="section-heading" id="gallery-heading">From Our Rescues</h2>
-    <div class="gallery-viewport">
-      {
-        galleryPhotos.map((photo, index) => (
-          <img
-            class="gallery-slide"
-            data-slide
-            src={`images/homepage/${photo.src}`}
-            alt={photo.alt}
-            hidden={index !== 0}
-          />
-        ))
-      }
-      <button class="carousel-control carousel-prev" type="button" aria-label="Previous photo" data-carousel-prev>
-        ‹
-      </button>
-      <button class="carousel-control carousel-next" type="button" aria-label="Next photo" data-carousel-next>
-        ›
-      </button>
-    </div>
-    <p class="gallery-status" aria-live="polite" data-carousel-status>1 / {galleryPhotos.length}</p>
   </section>
 
   <section class="get-involved" aria-labelledby="get-involved-heading">
@@ -188,6 +149,30 @@ const galleryPhotos = [
         ))
       }
     </div>
+  </section>
+
+  <section class="gallery" aria-labelledby="gallery-heading" data-animate data-carousel>
+    <h2 class="section-heading" id="gallery-heading">From Our Rescues</h2>
+    <div class="gallery-viewport">
+      {
+        galleryPhotos.map((photo, index) => (
+          <img
+            class="gallery-slide"
+            data-slide
+            src={`images/homepage/${photo.src}`}
+            alt={photo.alt}
+            hidden={index !== 0}
+          />
+        ))
+      }
+      <button class="carousel-control carousel-prev" type="button" aria-label="Previous photo" data-carousel-prev>
+        ‹
+      </button>
+      <button class="carousel-control carousel-next" type="button" aria-label="Next photo" data-carousel-next>
+        ›
+      </button>
+    </div>
+    <p class="gallery-status" aria-live="polite" data-carousel-status>1 / {galleryPhotos.length}</p>
   </section>
 
   <section class="donation-cta" aria-labelledby="donate-heading" data-animate>

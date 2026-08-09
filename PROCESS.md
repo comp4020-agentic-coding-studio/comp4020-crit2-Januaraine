@@ -1,9 +1,5 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
 A reading-guide to how the work came together --- a map to your process, not an
 essay about it. Markers read this file and follow its citations; they don't
 trawl the repo for evidence you didn't point at, so if a moment mattered, cite
@@ -17,60 +13,34 @@ cover every deliverable.
 
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+An Astro/TypeScript redesign of the ACT Wildlife homepage: the old standalone
+"Notices & Current Campaigns" strip and mission strip are folded into the hero
+as an autoplaying two-slide carousel and a single subtitle paragraph, the
+header/footer are decluttered (no hotline pill, no small footer logo, a
+right-aligned nav), and a fixed 24/7 hotline button follows the reader on
+every scroll position.
 
 ## The moments that mattered
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
-
-1. **what happened** --- the problem, or the thing the agent got wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
-
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** rather than in another prompt --- a rule added to
-`CLAUDE.md`, a check wired up, an attempt thrown away: re-prompting until it
-passes is the routine case, and changing what the agent works against is the
-skilled one.
-
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
-
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
-
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
-
-> the prompt, verbatim
-
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
-
-### A worked moment, for shape
-
-Delete this section along with the rest of the boilerplate --- it's here to show
-the four jobs in one paragraph, not to be imitated in content.
-
-> The date formatter kept coming back with `toLocaleDateString()` and no locale
-> argument, so the same build rendered differently on my machine and in CI. I'd
-> already re-prompted it twice, which fixed the line but not the habit, so the
-> third time I put the rule in `CLAUDE.md` instead
-> ([`3f9ac21`](https://github.com/YOUR-ORG/YOUR-REPO/commit/3f9ac21)) and added
-> a spec test that fails on a bare `toLocaleDateString`. That's what told me it
-> had actually taken: the test went red against the old code and green against
-> the new, and the next two features it wrote passed it without prompting
-> ([`3f9ac21...b7e0d14`](https://github.com/YOUR-ORG/YOUR-REPO/compare/3f9ac21...b7e0d14)).
+1. The brief I inherited planned an empty-state placeholder for the notices
+   slide, on the assumption any real notice would be stale by the time this
+   shipped. Instead of building disposable placeholder copy, I fetched the
+   live site and found a bird-flu notice genuinely dated 3 July 2026 and a
+   netting-swap campaign with session dates still in the future (29
+   Aug--10 Oct 2026) --- both current, not historical --- so I used the real
+   notice content, keeping the government hotline (`1800 675 888`) labelled
+   as a separate number rather than styled like our own
+   ([`72a6532`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-Januaraine/commit/72a6532)).
+2. The rebuilt "From Our Rescues" gallery updated its `1/2` counter on click
+   but never changed the visible photo. Rather than rewriting the slide-state
+   script, I read `global.css` and found a global `img { display: block }`
+   author-origin rule beating the browser's own `[hidden]` rule under normal
+   CSS cascade precedence, so every slide stayed painted regardless of the
+   `hidden` attribute the script was already toggling correctly. The fix was
+   one CSS rule; I confirmed it by driving the rendered page with Playwright
+   at both 1920x1080 and 390x844 and checking the `src` of the visible image
+   actually changed on each click, not just the counter text
+   ([`72a6532`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-Januaraine/commit/72a6532)).
 
 ## Before you ship
 
@@ -93,7 +63,8 @@ moment you look. Open this file on GitHub and look at it before you ship.
 ### 1. Avian Flu Notice & Campaign Slot Strategy
 * **Observation:** The live site features a 3 July 2026 Avian Flu notice.
 * **Spec Constraint:** Per `docs/homepage-content-strategy.md`, historical notices are treated as time-bound.
-* **Decision:** Designed a reusable `Campaign Card` component with a clean, low-profile **Empty State** (`Check back here for current updates`) instead of hardcoding static notice copy or non-primary hotlines (`1800 675 888`). Guaranteed layout robustness when no active campaign is running.
+* **Original decision:** Designed a reusable `Campaign Card` component with a clean, low-profile **Empty State** (`Check back here for current updates`) instead of hardcoding static notice copy or non-primary hotlines (`1800 675 888`). Guaranteed layout robustness when no active campaign is running.
+* **Superseded:** Re-checked the live site before shipping and found the notice, and a netting-swap campaign, were both still genuinely current (see "The moments that mattered" above). Shipped the real notice content instead of the empty state, with the government hotline kept explicitly labelled as a separate, non-ACT-Wildlife number.
 
 ### 2. Sponsor Logos (IFAW) & Copyright Compliance
 * **Constraint:** IFAW logo/partnership could not be independently verified in `docs/analysis.md` and was excluded from verified asset downloads.

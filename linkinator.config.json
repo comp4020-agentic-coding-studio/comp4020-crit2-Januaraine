@@ -1,6 +1,8 @@
 {
   "skip": [
     "instagram\\.com",
-    "birdflu\\.gov\\.au"
+    "birdflu\\.gov\\.au",
+    "https://www.instagram.com/.*",
+    "https://.*birdflu\\.gov\\.au.*"
   ]
 }
